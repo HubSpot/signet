@@ -1,15 +1,66 @@
-(function(){
-    if (!window.console || !window.console.log || !window.signet)
+/*
+
+    ||||||
+    Signet   Adam Schwartz
+
+    Make your mark. https://github.com/HubSpot/signet
+
+    Settings:
+
+    - signet.title             - string  - title of your page (required to show color bars signet)
+    - signet.author            - string  - author of your page
+    - signet.description       - string  - description of your page
+
+    - signet.signet            - boolean - show color bars signet above the title
+    - signet.hue               - integer - hue offset for the color bars
+
+    - signet.baseStyles        - string  - base style string for all parst of the singet (best used to set base font or color)
+    - signet.titleStyles       - string  - title styles
+    - signet.authorStyles      - string  - author styles
+    - signet.descriptionStyles - string  - description styles
+
+*/
+
+setTimeout(function(){
+    var i, args;
+
+    if (!window.console || !window.console.log || (!document.head && !window.signet))
         return;
 
-    setTimeout(function(){
-        if (signet.name)
-            console.log('%' + signet.name, 'color: #444; font-size: 20px; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; padding: 10px 20px 10px; line-height: 50px; border: 2px solid #444;');
+    if (!window.signet)
+        window.signet = {
+            signet: true,
+            title: document.title,
+            author: document.head.querySelector('meta[name=author]').content,
+            description: document.head.querySelector('meta[name=description]').content
+        };
 
-        if (signet.description)
-            console.log('%c' + signet.description, 'color: #444; font-size: 15px; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; padding-top: 40px; line-height: 30px');
+    signet.hue = signet.hue || 0;
+    signet.baseStyles = 'color: #444; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;';
 
-        if (signet.authors)
-            console.log('%c' + signet.authors.join(', '), 'color: #444; font-size: 12px; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; padding-top: 35px; line-height: 30px');
-    }, 0);
-})();
+    signet.titleStyles = signet.titleStyles || (signet.baseStyles + 'font-size: 20px; line-height: 30px;');
+    signet.authorStyles = signet.authorStyles || (signet.baseStyles + 'font-size: 12px; line-height: 30px; padding-left: 20px;');
+    signet.descriptionStyles = signet.descriptionStyles || (signet.baseStyles + 'font-size: 14px; line-height: 20px;');
+
+    if (signet.signet !== false && signet.title) {
+        args = [''];
+        for (i = 0; i < signet.title.length; i++) {
+            args[0] += '%c' + signet.title[i];
+            if (signet.title[i] === ' ') {
+                args.push(signet.titleStyles);
+            } else {
+                args.push(signet.titleStyles + 'background: hsl(' + (((signet.title[i].toLowerCase().charCodeAt(0) * 2) + signet.signet) % 255) + ', 80%, 80%); color: transparent; line-height: 0;');
+            }
+        }
+        console.log.apply(console, args);
+    }
+
+    if (signet.title && signet.author)
+        console.log('%c' + signet.title + '%c' + signet.author, signet.titleStyles, signet.authorStyles);
+
+    if (signet.title && !signet.author)
+        console.log('%c' + signet.title, signet.titleStyles);
+
+    if (signet.description)
+        console.log('%c' + signet.description, signet.descriptionStyles);
+}, 0);
