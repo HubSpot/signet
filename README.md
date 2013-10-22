@@ -82,6 +82,8 @@ Stylized logs are supported in the following browsers:
 - Opera with Blink (15+)
 - Safari Nightly (537.38+)
 
+Signet will harmelessly disable itself on older browsers without console support.
+
 ### Screenshot
 
 ![](http://github.hubspot.com/signet/images/preview.png?)
