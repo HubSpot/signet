@@ -1,0 +1,11 @@
+{
+  "name": "Signet",
+  "version": "0.1",
+  "description": "Make your mark.",
+  "author": "Adam Schwartz <aschwartz@hubspot.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "grunt-contrib-uglify": "~0.2.4",
+    "grunt": "~0.4.1"
+  }
+}
