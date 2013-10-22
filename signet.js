@@ -39,9 +39,9 @@
     signet.hue = signet.hue || 0;
     signet.baseStyles = 'color: #444; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;';
 
-    signet.titleStyles = signet.titleStyles || (signet.baseStyles + 'font-size: 20px; line-height: 30px;');
-    signet.authorStyles = signet.authorStyles || (signet.baseStyles + 'font-size: 12px; line-height: 30px; padding-left: 20px;');
-    signet.descriptionStyles = signet.descriptionStyles || (signet.baseStyles + 'font-size: 14px; line-height: 20px;');
+    signet.titleStyles = signet.titleStyles || ('font-size: 20px; line-height: 30px;' + signet.baseStyles);
+    signet.authorStyles = signet.authorStyles || ('font-size: 12px; line-height: 30px; padding-left: 20px;' + signet.baseStyles);
+    signet.descriptionStyles = signet.descriptionStyles || ('font-size: 14px; line-height: 20px;' + signet.baseStyles);
 
     if (signet.signet !== false && signet.title) {
         args = [''];
@@ -50,7 +50,7 @@
             if (signet.title[i] === ' ') {
                 args.push(signet.titleStyles);
             } else {
-                args.push(signet.titleStyles + 'background: hsl(' + (((signet.title[i].toLowerCase().charCodeAt(0) * 2) + signet.signet) % 255) + ', 80%, 80%); color: transparent; line-height: 0;');
+                args.push('background: hsl(' + (((signet.title[i].toLowerCase().charCodeAt(0) * 2) + signet.signet) % 255) + ', 80%, 80%); color: transparent; line-height: 0;' + signet.titleStyles);
             }
         }
         console.log.apply(console, args);
