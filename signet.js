@@ -1,7 +1,7 @@
 /*
 
     ||||||
-    Signet   Adam Schwartz
+    Signet   Adam Schwartz & Zack Bloom
 
     Display a unique seal in the developer console of your page.
     https://github.com/HubSpot/signet
@@ -15,7 +15,7 @@
     - signet.signet            - boolean - show color bars signet above the title
     - signet.hue               - integer - hue offset for the color bars
 
-    - signet.baseStyles        - string  - base style string for all parst of the singet (best used to set base font or color)
+    - signet.baseStyles        - string  - base style string for all parst of the signet (best used to set base font or color)
     - signet.titleStyles       - string  - title styles
     - signet.authorStyles      - string  - author styles
     - signet.descriptionStyles - string  - description styles
@@ -23,8 +23,22 @@
 */
 
 (function(){
-    if (!window.console || !window.console.log)
+    var autoInit, tag;
+
+    window.signet = window.signet || {};
+    window.signet.options = window.signet.options || window.signetOptions || {};
+
+    if (!window.console || !window.console.log || !document.head || !document.querySelector){
+        window.signet.draw = function(){}
         return;
+    }
+
+    autoInit = true;
+    tag = document.querySelector('[data-signet-draw]');
+    if (tag)
+        autoInit = (tag.getAttribute('data-signet-draw').toLowerCase() != 'false');
+    if (signet.options.draw === false)
+        autoInit = false;
 
     // Defer execution until the next event loop tick, but don't let anything be rendered to the console
     // until we can run our function.  This will break console.log line numbers, but only for the first tick.
@@ -67,15 +81,17 @@
         }, 0);
     }
 
-    deferConsole(function(_console){
+    function draw(options, _console){
         var i, args;
 
-        if ((!document.head && !window.signet) || window.signet === false)
-            return;
+        _console = _console || window.console;
 
-        window.signet = window.signet || {
+        options = options || window.signet.options || {
             enabled: true
         };
+
+        if (options.enabled === false)
+            return;
 
         function orDefault(a, b){
             if (typeof a !== 'undefined')
@@ -83,38 +99,46 @@
             return b;
         }
 
-        signet.title = orDefault(signet.title, document.title);
-        signet.author = orDefault(signet.author, document.head.querySelector('meta[name=author]').content);
-        signet.description = orDefault(signet.description, document.head.querySelector('meta[name=description]').content);
+        options.title = orDefault(options.title, document.title);
+        options.author = orDefault(options.author, document.head.querySelector('meta[name=author]').content);
+        options.description = orDefault(options.description, document.head.querySelector('meta[name=description]').content);
     
-        signet.hue = signet.hue || 0;
+        options.hue = options.hue || 0;
 
-        signet.baseStyles = orDefault(signet.baseStyles, 'color: #444; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;');
+        options.baseStyles = orDefault(options.baseStyles, 'color: #444; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;');
 
-        signet.titleStyles = orDefault(signet.titleStyles, signet.baseStyles + ';font-size: 20px; line-height: 30px;');
-        signet.authorStyles = orDefault(signet.authorStyles, signet.baseStyles + ';font-size: 12px; line-height: 30px; padding-left: 20px;');
-        signet.descriptionStyles = orDefault(signet.descriptionStyles, signet.baseStyles + ';font-size: 14px; line-height: 20px;');
+        options.titleStyles = orDefault(options.titleStyles, options.baseStyles + ';font-size: 20px; line-height: 30px;');
+        options.authorStyles = orDefault(options.authorStyles, options.baseStyles + ';font-size: 12px; line-height: 30px; padding-left: 20px;');
+        options.descriptionStyles = orDefault(options.descriptionStyles, options.baseStyles + ';font-size: 14px; line-height: 20px;');
 
-        if (signet.enabled !== false && signet.title) {
+        if (options.title) {
             args = [''];
-            for (i = 0; i < signet.title.length; i++) {
-                args[0] += '%c' + signet.title[i];
-                if (signet.title[i] === ' ') {
-                    args.push(signet.titleStyles);
+            for (i = 0; i < options.title.length; i++) {
+                args[0] += '%c' + options.title[i];
+                if (options.title[i] === ' ') {
+                    args.push(options.titleStyles);
                 } else {
-                    args.push(signet.titleStyles + ';background: hsl(' + (((signet.title[i].toLowerCase().charCodeAt(0) * 2) + signet.hue) % 255) + ', 80%, 80%); color: transparent; line-height: 0;');
+                    args.push(options.titleStyles + ';background: hsl(' + (((options.title[i].toLowerCase().charCodeAt(0) * 2) + options.hue) % 255) + ', 80%, 80%); color: transparent; line-height: 0;');
                 }
             }
             _console.log.apply(console, args);
         }
 
-        if (signet.title && signet.author)
-            _console.log('%c' + signet.title + '%c' + signet.author, signet.titleStyles, signet.authorStyles);
+        if (options.title && options.author)
+            _console.log('%c' + options.title + '%c' + options.author, options.titleStyles, options.authorStyles);
 
-        if (signet.title && !signet.author)
-            _console.log('%c' + signet.title, signet.titleStyles);
+        if (options.title && !options.author)
+            _console.log('%c' + options.title, options.titleStyles);
 
-        if (signet.description)
-            _console.log('%c' + signet.description, signet.descriptionStyles);
-    });
+        if (options.description)
+            _console.log('%c' + options.description, options.descriptionStyles);
+    }
+
+    if (autoInit){
+        deferConsole(function(_console){
+            draw(null, _console);
+        });
+    }
+
+    window.signet.draw = draw;
 })();
