@@ -40,4 +40,4 @@ Stylized logs are supported in the following browsers:
 
 ### Screenshot
 
-![](http://github.hubspot.com/signet/images/preview.png)
+![](http://github.hubspot.com/signet/images/preview.png?)
