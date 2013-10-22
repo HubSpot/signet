@@ -66,23 +66,25 @@
         }
 
         setTimeout(function(){
-            fn(callable);
+            function then(){
+                while (messages.length) {
+                    block = messages.shift();
+                    type = block[0];
+                    message = block[1];
 
-            while (messages.length) {
-                block = messages.shift();
-                type = block[0];
-                message = block[1];
+                    old[type].apply(console, message);
+                }
 
-                old[type].apply(console, message);
-            }
+                for (i = types.length; i--;) {
+                    console[type] = old[type];
+                }
+            };
 
-            for (i = types.length; i--;) {
-                console[type] = old[type];
-            }
+            fn(callable, then);
         }, 0);
     }
 
-    function draw(options, _console) {
+    function draw(options, _console, cb) {
         var i, img, args;
 
         _console = _console || window.console;
@@ -114,6 +116,8 @@
         options.author = orDefault(options.author, getContent('meta[name=author]'), '');
         options.description = orDefault(options.description, getContent('meta[name=description]'), getContent('meta[property="og:description"]'), '');
 
+        options.image = orDefault(options.image, getContent('meta[property="og:image"]'), getContent('meta[name=image]'));
+
         options.hue = options.hue || 0;
 
         options.baseStyles = orDefault(options.baseStyles, 'color: #444; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;');
@@ -122,31 +126,51 @@
         options.authorStyles = orDefault(options.authorStyles, options.baseStyles + ';font-size: 12px; line-height: 30px; padding-left: 20px;');
         options.descriptionStyles = orDefault(options.descriptionStyles, options.baseStyles + ';font-size: 14px; line-height: 20px;');
 
-        if (options.title) {
-            args = [''];
-            for (i = 0; i < options.title.length; i++) {
-                args[0] += '%c' + options.title[i];
-                if (options.title[i] === ' ') {
-                    args.push(options.titleStyles);
-                } else {
-                    args.push(options.titleStyles + ';background: hsl(' + (((options.title[i].toLowerCase().charCodeAt(0) * 2) + options.hue) % 255) + ', 80%, 80%); color: transparent; line-height: 0;');
+        function _draw() {
+            if (options.title) {
+                if (!options.image) {
+                    args = [''];
+                    for (i = 0; i < options.title.length; i++) {
+                        args[0] += '%c' + options.title[i];
+                        if (options.title[i] === ' ') {
+                            args.push(options.titleStyles);
+                        } else {
+                            args.push(options.titleStyles + '; background: hsl(' + (((options.title[i].toLowerCase().charCodeAt(0) * 2) + options.hue) % 255) + ', 80%, 80%); color: transparent; line-height: 0;');
+                        }
+                    }
+                    _console.log.apply(console, args);
                 }
-            }
-            _console.log.apply(console, args);
 
-            if (options.author)
-                _console.log('%c' + options.title + '%c' + options.author, options.titleStyles, options.authorStyles);
-            else
-                _console.log('%c' + options.title, options.titleStyles);
+                if (options.author)
+                    _console.log('%c' + options.title + '%c' + options.author, options.titleStyles, options.authorStyles);
+                else
+                    _console.log('%c' + options.title, options.titleStyles);
+            }
+
+            if (options.description)
+                _console.log('%c' + options.description, options.descriptionStyles);
+
+            if (cb)
+                cb();
         }
 
-        if (options.description)
-            _console.log('%c' + options.description, options.descriptionStyles);
+        if (!options.image) {
+            _draw();
+        } else {
+            img = new Image();
+
+            img.onload = function() {
+                _console.log('%c ', 'font-size: 0; line-height: ' + img.height + 'px; padding: ' + Math.floor(img.height / 2) + 'px ' + img.width + 'px ' + Math.ceil(img.height / 2) + 'px 0; background-image: url("' + img.src + '");');
+                _draw();
+            };
+
+            img.src = options.image;
+        }
     }
 
     if (autoInit) {
-        deferConsole(function(_console){
-            draw(null, _console);
+        deferConsole(function(_console, then){
+            draw(null, _console, then);
         });
     }
 
