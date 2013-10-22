@@ -28,7 +28,7 @@
     window.signet = window.signet || {};
     window.signet.options = window.signet.options || window.signetOptions || {};
 
-    if (!window.console || !window.console.log || !document.head || !document.querySelector){
+    if (!window.console || !window.console.log || !document.head || !document.querySelector) {
         window.signet.draw = function() {};
         return;
     }
@@ -43,7 +43,7 @@
     // Defer execution until the next event loop tick, but don't let anything be rendered to the console
     // until we can run our function.  This will break console.log line numbers, but only for the first tick.
     // The fn is passed a special console which will actually log immediately.
-    function deferConsole(fn){
+    function deferConsole(fn) {
         var messages, message, block, old, callable, types, type, i;
 
         types = ['log', 'debug', 'warn', 'error'];
@@ -51,24 +51,24 @@
         callable = {};
         messages = [];
 
-        for(i=types.length; i--;){
+        for (i = types.length; i--;) {
             (function(type){
                 old[type] = console[type];
 
-                callable[type] = function(){
+                callable[type] = function() {
                     old[type].apply(console, arguments);
                 };
 
-                console[type] = function(){
+                console[type] = function() {
                     messages.push([type, arguments]);
                 };
-
             })(types[i]);
         }
+
         setTimeout(function(){
             fn(callable);
 
-            while(messages.length){
+            while (messages.length) {
                 block = messages.shift();
                 type = block[0];
                 message = block[1];
@@ -76,14 +76,14 @@
                 old[type].apply(console, message);
             }
 
-            for(i=types.length; i--;){
+            for (i = types.length; i--;) {
                 console[type] = old[type];
             }
         }, 0);
     }
 
-    function draw(options, _console){
-        var i, args;
+    function draw(options, _console) {
+        var i, img, args;
 
         _console = _console || window.console;
 
@@ -95,14 +95,14 @@
             return;
 
         function orDefault(){
-            for (i=0; i <= arguments.length; i++){
+            for (i = 0; i <= arguments.length; i++) {
                 if (typeof arguments[i] !== 'undefined')
                     return arguments[i];
             }
             return arguments[arguments.length - 1];
         }
 
-        function getContent(selector){
+        function getContent(selector) {
             var el = document.head.querySelector(selector);
 
             if (el)
@@ -144,7 +144,7 @@
             _console.log('%c' + options.description, options.descriptionStyles);
     }
 
-    if (autoInit){
+    if (autoInit) {
         deferConsole(function(_console){
             draw(null, _console);
         });
