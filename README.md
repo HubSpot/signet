@@ -6,28 +6,68 @@
 
 ### Features
 
-- Display a unique seal in the console of your page.
-- Automatically grabs `title`, `author`, and `description`, from respective `<meta>` tags.
-- Manual configuration possible in javascript by settings `window.signet` object options. (See below.)
+- Display a unique seal (automatically generated from the title) in the console.
+- Display page title, author, and description in the console. (Automatically grabs from respective `<meta>` tags)
+- Use the description to provide a link to other developers to learn more about your app, your development processes, or even your hiring informatino ;).
+- Optionally display an image instead of the unique seal.
+- Manual configuration possible in javascript by disabling the auto-initialization and setting your own options. (See below.)
 
-### Configuration
+### Simple Use
+
+Simply include the script in your page and you're done.
+
+```html
+<script src="signet.min.js"></script>
+```
+
+To get the most out of Signet, you'll want to make sure you have the following `<meta>` tags in the `<head>` of your page:
+
+```html
+<meta name="application-name" content="Example Title">
+<meta name="description" content="Example description. More info: http://example.com">
+<meta name="author" content="Example Author">
+```
+
+By adding these `<meta>` tags to your page, you'll get the added benefit of __improving your SEO__.
+
+#### Download
+
+##### [script.min.js](github.hubspot.com/signet/signet.min.js)
+##### [script.js](github.hubspot.com/signet/signet.js)
+
+### Advnaced Use
+
+If you want full control, you can disable the autoinitialization and set your own options.
+
+Here's an example of how you might go about that:
+
+```html
+<script src="signet.min.js" data-signet-draw="false"></script>
+<script>
+    var signetOptions = {
+        hue: 50 // Rotates the hue of the signet color bars by 50 (mod 256),
+        title: 'Custom Example Title',
+        description: 'Custom example description. More info: http://example.com'
+    };
+</script>
+```
+
+#### Configuration Options
 
 By default, no configuration is required. View the [demo page](http://github.hubspot.com/signet) for an example which uses no configuration.
 
 However, if desired, you can configure the following:
 
-
-    - signet.title             - string  - title of your page (required to show color bars signet)
-    - signet.author            - string  - author of your page
-    - signet.description       - string  - description of your page
-
-    - signet.signet            - boolean - show color bars signet above the title
-    - signet.hue               - integer - hue offset for the color bars
-
-    - signet.baseStyles        - string  - base style string for all parst of the singet (best used to set base font or color)
-    - signet.titleStyles       - string  - title styles
-    - signet.authorStyles      - string  - author styles
-    - signet.descriptionStyles - string  - description styles
+    window.signetOptions
+      .title             - string  - title of your page (required to show color bars signet)
+      .author            - string  - author of your page
+      .description       - string  - description of your page
+      .hue               - integer - hue offset for the color bars
+      .image             - string  - url of an image to dipslay instead of the color bars
+      .baseStyles        - string  - base style string for all parst of the singet (best used to set base font or color)
+      .titleStyles       - string  - title styles
+      .authorStyles      - string  - author styles
+      .descriptionStyles - string  - description styles
 
 ### Dependencies
 
