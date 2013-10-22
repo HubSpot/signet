@@ -23,52 +23,97 @@
 */
 
 (function(){
-    var i, args;
-
-    if (!window.console || !window.console.log || (!document.head && !window.signet) || window.signet === false)
+    if (!window.console || !window.console.log)
         return;
 
-    window.signet = window.signet || {
-        signet: true
-    };
+    // Defer execution until the next event loop tick, but don't let anything be rendered to the console
+    // until we can run our function.  This will break console.log line numbers, but only for the first tick.
+    function deferConsole(fn){
+        var messages, message, block, old, callable, types, type, i;
 
-    function orDefault(a, b){
-        if (typeof a !== 'undefined')
-            return a;
-        return b;
-    }
+        types = ['log', 'debug', 'warn', 'error'];
+        old = {};
+        callable = {};
+        messages = [];
 
-    signet.title = orDefault(signet.title, document.title);
-    signet.author = orDefault(signet.author, document.head.querySelector('meta[name=author]').content);
-    signet.description = orDefault(signet.description, document.head.querySelector('meta[name=description]').content);
-  
-    signet.hue = signet.hue || 0;
+        for(i=types.length; i--;){
+            (function(type){
+                old[type] = console[type];
 
-    signet.baseStyles = orDefault(signet.baseStyles, 'color: #444; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;');
+                callable[type] = function(){
+                    old[type].apply(console, arguments);
+                };
 
-    signet.titleStyles = orDefault(signet.titleStyles, 'font-size: 20px; line-height: 30px;' + signet.baseStyles);
-    signet.authorStyles = orDefault(signet.authorStyles, 'font-size: 12px; line-height: 30px; padding-left: 20px;' + signet.baseStyles);
-    signet.descriptionStyles = orDefault(signet.descriptionStyles, 'font-size: 14px; line-height: 20px;' + signet.baseStyles);
-
-    if (signet.signet !== false && signet.title) {
-        args = [''];
-        for (i = 0; i < signet.title.length; i++) {
-            args[0] += '%c' + signet.title[i];
-            if (signet.title[i] === ' ') {
-                args.push(signet.titleStyles);
-            } else {
-                args.push('background: hsl(' + (((signet.title[i].toLowerCase().charCodeAt(0) * 2) + signet.signet) % 255) + ', 80%, 80%); color: transparent; line-height: 0;' + signet.titleStyles);
-            }
+                console[type] = function(){
+                    messages.push([type, arguments]);
+                }
+            })(types[i]);
         }
-        console.log.apply(console, args);
+        setTimeout(function(){
+            fn(callable);
+
+            while(messages.length){
+                block = messages.shift();
+                type = block[0];
+                message = block[1];
+
+                old[type].apply(console, message);
+            }
+
+            for(i=types.length; i--;){
+                console[type] = old[type];
+            }
+        }, 0);
     }
 
-    if (signet.title && signet.author)
-        console.log('%c' + signet.title + '%c' + signet.author, signet.titleStyles, signet.authorStyles);
+    deferConsole(function(_console){
+        var i, args;
 
-    if (signet.title && !signet.author)
-        console.log('%c' + signet.title, signet.titleStyles);
+        if ((!document.head && !window.signet) || window.signet === false)
+            return;
 
-    if (signet.description)
-        console.log('%c' + signet.description, signet.descriptionStyles);
+        window.signet = window.signet || {
+            signet: true
+        };
+
+        function orDefault(a, b){
+            if (typeof a !== 'undefined')
+                return a;
+            return b;
+        }
+
+        signet.title = orDefault(signet.title, document.title);
+        signet.author = orDefault(signet.author, document.head.querySelector('meta[name=author]').content);
+        signet.description = orDefault(signet.description, document.head.querySelector('meta[name=description]').content);
+    
+        signet.hue = signet.hue || 0;
+
+        signet.baseStyles = orDefault(signet.baseStyles, 'color: #444; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;');
+
+        signet.titleStyles = orDefault(signet.titleStyles, 'font-size: 20px; line-height: 30px;' + signet.baseStyles);
+        signet.authorStyles = orDefault(signet.authorStyles, 'font-size: 12px; line-height: 30px; padding-left: 20px;' + signet.baseStyles);
+        signet.descriptionStyles = orDefault(signet.descriptionStyles, 'font-size: 14px; line-height: 20px;' + signet.baseStyles);
+
+        if (signet.signet !== false && signet.title) {
+            args = [''];
+            for (i = 0; i < signet.title.length; i++) {
+                args[0] += '%c' + signet.title[i];
+                if (signet.title[i] === ' ') {
+                    args.push(signet.titleStyles);
+                } else {
+                    args.push('background: hsl(' + (((signet.title[i].toLowerCase().charCodeAt(0) * 2) + signet.signet) % 255) + ', 80%, 80%); color: transparent; line-height: 0;' + signet.titleStyles);
+                }
+            }
+            _console.log.apply(console, args);
+        }
+
+        if (signet.title && signet.author)
+            _console.log('%c' + signet.title + '%c' + signet.author, signet.titleStyles, signet.authorStyles);
+
+        if (signet.title && !signet.author)
+            _console.log('%c' + signet.title, signet.titleStyles);
+
+        if (signet.description)
+            _console.log('%c' + signet.description, signet.descriptionStyles);
+    });
 })();
