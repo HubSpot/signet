@@ -29,7 +29,7 @@
     window.signet.options = window.signet.options || window.signetOptions || {};
 
     if (!window.console || !window.console.log || !document.head || !document.querySelector){
-        window.signet.draw = function(){}
+        window.signet.draw = function() {};
         return;
     }
 
@@ -61,7 +61,8 @@
 
                 console[type] = function(){
                     messages.push([type, arguments]);
-                }
+                };
+
             })(types[i]);
         }
         setTimeout(function(){
