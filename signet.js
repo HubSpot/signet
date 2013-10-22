@@ -31,7 +31,7 @@ setTimeout(function(){
     if (!window.signet)
         window.signet = {
             signet: true,
-            title: document.title,
+            title: document.head.querySelector('meta[name="application-name"]').content || document.title.split(/ [\/\\\|\-\u8211\u8212] |\: /)[0],
             author: document.head.querySelector('meta[name=author]').content,
             description: document.head.querySelector('meta[name=description]').content
         };
