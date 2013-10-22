@@ -66,23 +66,25 @@
         }
 
         setTimeout(function(){
-            fn(callable);
+            function then(){
+                while (messages.length) {
+                    block = messages.shift();
+                    type = block[0];
+                    message = block[1];
 
-            while (messages.length) {
-                block = messages.shift();
-                type = block[0];
-                message = block[1];
+                    old[type].apply(console, message);
+                }
 
-                old[type].apply(console, message);
-            }
+                for (i = types.length; i--;) {
+                    console[type] = old[type];
+                }
+            };
 
-            for (i = types.length; i--;) {
-                console[type] = old[type];
-            }
+            fn(callable, then);
         }, 0);
     }
 
-    function draw(options, _console) {
+    function draw(options, _console, cb) {
         var i, img, args;
 
         _console = _console || window.console;
@@ -147,6 +149,9 @@
 
             if (options.description)
                 _console.log('%c' + options.description, options.descriptionStyles);
+
+            if (cb)
+                cb();
         }
 
         if (!options.image) {
@@ -164,8 +169,8 @@
     }
 
     if (autoInit) {
-        deferConsole(function(_console){
-            draw(null, _console);
+        deferConsole(function(_console, then){
+            draw(null, _console, then);
         });
     }
 
