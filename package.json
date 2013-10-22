@@ -1,7 +1,7 @@
 {
   "name": "Signet",
   "version": "0.1",
-  "description": "Make your mark.",
+  "description": "Display a unique seal in the developer console of your page.",
   "author": "Adam Schwartz <aschwartz@hubspot.com>",
   "license": "MIT",
   "devDependencies": {

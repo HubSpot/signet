@@ -1,6 +1,6 @@
 ## Signet
 
-> Make your mark.
+#### Display a unique seal in the developer console of your page.
 
 ### [Demo](http://github.hubspot.com/signet)
 
@@ -29,6 +29,10 @@ However, if desired, you can configure the following:
     - signet.authorStyles      - string  - author styles
     - signet.descriptionStyles - string  - description styles
 
+### Dependencies
+
+None.
+
 ### Support
 
 Stylized logs are supported in the following browsers:
@@ -40,4 +44,4 @@ Stylized logs are supported in the following browsers:
 
 ### Screenshot
 
-![](http://github.hubspot.com/signet/images/preview.png)
+![](http://github.hubspot.com/signet/images/preview.png?)
