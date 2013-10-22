@@ -28,19 +28,19 @@
     if (!window.console || !window.console.log || (!document.head && !window.signet) || window.signet === false)
         return;
 
-    if (!window.signet)
-        window.signet = {
-            signet: true,
-            title: document.title,
-            author: document.head.querySelector('meta[name=author]').content,
-            description: document.head.querySelector('meta[name=description]').content
-        };
+    window.signet = window.signet || {
+        signet: true
+    };
 
-    orDefault = function(a, b){
-      if (typeof a !== 'undefined')
-        return a;
-      return b;
+    function orDefault(a, b){
+        if (typeof a !== 'undefined')
+            return a;
+        return b;
     }
+
+    signet.title = orDefault(signet.title, document.title);
+    signet.author = orDefault(signet.author, document.head.querySelector('meta[name=author]').content);
+    signet.description = orDefault(signet.description, document.head.querySelector('meta[name=description]').content);
   
     signet.hue = signet.hue || 0;
 
