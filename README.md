@@ -32,8 +32,8 @@ By adding these `<meta>` tags to your page, you'll get the added benefit of __im
 
 #### Download
 
-##### [script.min.js](github.hubspot.com/signet/signet.min.js)
-##### [script.js](github.hubspot.com/signet/signet.js)
+##### [script.min.js](http://github.hubspot.com/signet/signet.min.js)
+##### [script.js](http://github.hubspot.com/signet/signet.js)
 
 ### Advnaced Use
 
