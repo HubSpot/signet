@@ -29,6 +29,10 @@ However, if desired, you can configure the following:
     - signet.authorStyles      - string  - author styles
     - signet.descriptionStyles - string  - description styles
 
+### Dependencies
+
+None.
+
 ### Support
 
 Stylized logs are supported in the following browsers:
