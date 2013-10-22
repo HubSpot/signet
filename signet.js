@@ -101,7 +101,7 @@
                 if (signet.title[i] === ' ') {
                     args.push(signet.titleStyles);
                 } else {
-                    args.push('background: hsl(' + (((signet.title[i].toLowerCase().charCodeAt(0) * 2) + signet.signet) % 255) + ', 80%, 80%); color: transparent; line-height: 0;' + signet.titleStyles);
+                    args.push(signet.titleStyles + ';background: hsl(' + (((signet.title[i].toLowerCase().charCodeAt(0) * 2) + signet.signet) % 255) + ', 80%, 80%); color: transparent; line-height: 0;');
                 }
             }
             _console.log.apply(console, args);
