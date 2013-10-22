@@ -36,12 +36,19 @@
             description: document.head.querySelector('meta[name=description]').content
         };
 
+    orDefault = function(a, b){
+      if (typeof a !== 'undefined')
+        return a;
+      return b;
+    }
+  
     signet.hue = signet.hue || 0;
-    signet.baseStyles = 'color: #444; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;';
 
-    signet.titleStyles = signet.titleStyles || ('font-size: 20px; line-height: 30px;' + signet.baseStyles);
-    signet.authorStyles = signet.authorStyles || ('font-size: 12px; line-height: 30px; padding-left: 20px;' + signet.baseStyles);
-    signet.descriptionStyles = signet.descriptionStyles || ('font-size: 14px; line-height: 20px;' + signet.baseStyles);
+    signet.baseStyles = orDefault(signet.baseStyles, 'color: #444; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;');
+
+    signet.titleStyles = orDefault(signet.titleStyles, 'font-size: 20px; line-height: 30px;' + signet.baseStyles);
+    signet.authorStyles = orDefault(signet.authorStyles, 'font-size: 12px; line-height: 30px; padding-left: 20px;' + signet.baseStyles);
+    signet.descriptionStyles = orDefault(signet.descriptionStyles, 'font-size: 14px; line-height: 20px;' + signet.baseStyles);
 
     if (signet.signet !== false && signet.title) {
         args = [''];
