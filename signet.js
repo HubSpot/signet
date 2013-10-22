@@ -28,6 +28,7 @@
 
     // Defer execution until the next event loop tick, but don't let anything be rendered to the console
     // until we can run our function.  This will break console.log line numbers, but only for the first tick.
+    // The fn is passed a special console which will actually log immediately.
     function deferConsole(fn){
         var messages, message, block, old, callable, types, type, i;
 
