@@ -74,7 +74,7 @@
             return;
 
         window.signet = window.signet || {
-            signet: true
+            enabled: true
         };
 
         function orDefault(a, b){
@@ -91,18 +91,18 @@
 
         signet.baseStyles = orDefault(signet.baseStyles, 'color: #444; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;');
 
-        signet.titleStyles = orDefault(signet.titleStyles, 'font-size: 20px; line-height: 30px;' + signet.baseStyles);
-        signet.authorStyles = orDefault(signet.authorStyles, 'font-size: 12px; line-height: 30px; padding-left: 20px;' + signet.baseStyles);
-        signet.descriptionStyles = orDefault(signet.descriptionStyles, 'font-size: 14px; line-height: 20px;' + signet.baseStyles);
+        signet.titleStyles = orDefault(signet.titleStyles, signet.baseStyles + ';font-size: 20px; line-height: 30px;');
+        signet.authorStyles = orDefault(signet.authorStyles, signet.baseStyles + ';font-size: 12px; line-height: 30px; padding-left: 20px;');
+        signet.descriptionStyles = orDefault(signet.descriptionStyles, signet.baseStyles + ';font-size: 14px; line-height: 20px;');
 
-        if (signet.signet !== false && signet.title) {
+        if (signet.enabled !== false && signet.title) {
             args = [''];
             for (i = 0; i < signet.title.length; i++) {
                 args[0] += '%c' + signet.title[i];
                 if (signet.title[i] === ' ') {
                     args.push(signet.titleStyles);
                 } else {
-                    args.push(signet.titleStyles + ';background: hsl(' + (((signet.title[i].toLowerCase().charCodeAt(0) * 2) + signet.signet) % 255) + ', 80%, 80%); color: transparent; line-height: 0;');
+                    args.push(signet.titleStyles + ';background: hsl(' + (((signet.title[i].toLowerCase().charCodeAt(0) * 2) + signet.hue) % 255) + ', 80%, 80%); color: transparent; line-height: 0;');
                 }
             }
             _console.log.apply(console, args);
