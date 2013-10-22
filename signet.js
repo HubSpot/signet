@@ -22,7 +22,7 @@
 
 */
 
-setTimeout(function(){
+(function(){
     var i, args;
 
     if (!window.console || !window.console.log || (!document.head && !window.signet))
@@ -64,4 +64,4 @@ setTimeout(function(){
 
     if (signet.description)
         console.log('%c' + signet.description, signet.descriptionStyles);
-}, 0);
+})();
