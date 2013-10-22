@@ -25,7 +25,7 @@
 (function(){
     var i, args;
 
-    if (!window.console || !window.console.log || (!document.head && !window.signet))
+    if (!window.console || !window.console.log || (!document.head && !window.signet) || window.signet === false)
         return;
 
     if (!window.signet)
