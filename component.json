@@ -1,0 +1,17 @@
+{
+  "name": "Signet",
+  "repo": "HubSpot/signet",
+  "description": "Make your mark.",
+  "version": "1.3.3",
+  "homepage": "http://github.hubspot.com/signet",
+  "license": "MIT",
+  "keywords": [
+    "signet",
+    "signature",
+    "console.log",
+    "attribution"
+  ],
+  "scripts": [
+    "js/signet.js"
+  ]
+}
