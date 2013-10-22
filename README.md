@@ -1,6 +1,6 @@
 ## Signet
 
-> Make your mark.
+#### Display a unique seal in the developer console of your page.
 
 ### [Demo](http://github.hubspot.com/signet)
 

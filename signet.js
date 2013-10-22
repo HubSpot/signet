@@ -3,7 +3,8 @@
     ||||||
     Signet   Adam Schwartz
 
-    Make your mark. https://github.com/HubSpot/signet
+    Display a unique seal in the developer console of your page.
+    https://github.com/HubSpot/signet
 
     Settings:
 
