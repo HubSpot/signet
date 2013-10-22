@@ -110,10 +110,10 @@
             return undefined;
         }
 
-        options.title = orDefault(options.title, getContent('meta[name="application-name"]'), document.title.split(/ [\/\\\|\-\u8211\u8212] |\: /)[0], '');
+        options.title = orDefault(options.title, getContent('meta[name="application-name"]'), getContent('meta[property="og:title"]'), document.title.split(/ [\/\\\|\-\u8211\u8212] |\: /)[0], '');
         options.author = orDefault(options.author, getContent('meta[name=author]'), '');
-        options.description = orDefault(options.description, getContent('meta[name=description]'), '');
-    
+        options.description = orDefault(options.description, getContent('meta[name=description]'), getContent('meta[property="og:description"]'), '');
+
         options.hue = options.hue || 0;
 
         options.baseStyles = orDefault(options.baseStyles, 'color: #444; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;');
