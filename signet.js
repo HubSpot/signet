@@ -132,13 +132,12 @@
                 }
             }
             _console.log.apply(console, args);
+
+            if (options.author)
+                _console.log('%c' + options.title + '%c' + options.author, options.titleStyles, options.authorStyles);
+            else
+                _console.log('%c' + options.title, options.titleStyles);
         }
-
-        if (options.title && options.author)
-            _console.log('%c' + options.title + '%c' + options.author, options.titleStyles, options.authorStyles);
-
-        if (options.title && !options.author)
-            _console.log('%c' + options.title, options.titleStyles);
 
         if (options.description)
             _console.log('%c' + options.description, options.descriptionStyles);
