@@ -93,15 +93,25 @@
         if (options.enabled === false)
             return;
 
-        function orDefault(a, b){
-            if (typeof a !== 'undefined')
-                return a;
-            return b;
+        function orDefault(){
+            for (i=0; i <= arguments.length; i++){
+                if (typeof arguments[i] !== 'undefined')
+                    return arguments[i];
+            }
+            return arguments[arguments.length - 1];
         }
 
-        options.title = orDefault(options.title, document.title);
-        options.author = orDefault(options.author, document.head.querySelector('meta[name=author]').content);
-        options.description = orDefault(options.description, document.head.querySelector('meta[name=description]').content);
+        function getContent(selector){
+            var el = document.head.querySelector(selector);
+
+            if (el)
+                return el.content;
+            return undefined;
+        }
+
+        options.title = orDefault(options.title, getContent('meta[name="application-name"]'), document.title.split(/ [\/\\\|\-\u8211\u8212] |\: /)[0], '');
+        options.author = orDefault(options.author, getContent('meta[name=author]'), '');
+        options.description = orDefault(options.description, getContent('meta[name=description]'), '');
     
         options.hue = options.hue || 0;
 
