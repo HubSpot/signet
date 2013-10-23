@@ -9,7 +9,7 @@ getMetaList = (name) ->
 authors = getMetaList("signet:authors")
 links = getMetaList("signet:links")
 
-hasStyledLogSupport = ->
+supportsStyledLogs = do ->
     isSafari = -> /Safari/.test(navigator.userAgent) and /Apple Computer/.test(navigator.vendor)
     isOpera = -> /OPR/.test(navigator.userAgent) and /Opera/.test(navigator.vendor)
     isFF = -> /Firefox/.test(navigator.userAgent)
@@ -33,7 +33,35 @@ hasStyledLogSupport = ->
 
     (not isIE() and (not isFF() or ffSupport()) and (not isOpera() or operaSupport()) and (not isSafari() or safariSupport()))
 
-supportsStyledLogs = hasStyledLogSupport()
+# Defer execution until the next event loop tick, but don't let anything be rendered to the console
+# until we can run our function.  This will break console.log line numbers, but only for the first tick.
+# The fn is passed a special console which will actually log immediately.
+deferConsole = (fn) ->
+    types = ['log', 'debug', 'warn', 'error']
+    old = {}
+    callable = {}
+    messages = []
+
+    i = types.length
+
+    for type, i in types
+        do (type) ->
+            old[type] = console[type]
+            callable[type] = -> old[type].apply console, arguments
+            console[type] = -> messages.push [type, arguments]
+
+    setTimeout ->
+        for type in types
+            console[type] = old[type]
+
+        fn()
+
+        while messages.length
+            block = messages.shift()
+            type = block[0]
+            message = block[1]
+            console[type].apply console, message
+    , 0
 
 drawSignet = ->
     return unless authors.length
@@ -137,7 +165,6 @@ drawLinks = ->
 
     console.log linksArgs...
 
-setTimeout ->
+deferConsole ->
     drawSignet()
     drawLinks()
-, 0

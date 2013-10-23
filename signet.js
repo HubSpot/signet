@@ -15,13 +15,12 @@
   };
 
   orDefault = function() {
-    var i;
-    i = 0;
-    while (i <= arguments.length) {
-      if (typeof arguments[i] !== 'undefined') {
-        return arguments[i];
+    var argument, _i, _len;
+    for (_i = 0, _len = arguments.length; _i < _len; _i++) {
+      argument = arguments[_i];
+      if (typeof argument !== 'undefined') {
+        return argument;
       }
-      i++;
     }
     return arguments[arguments.length - 1];
   };

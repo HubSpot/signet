@@ -11,10 +11,8 @@ getOptions = (options) ->
   options
 
 orDefault = ->
-  i = 0
-  while i <= arguments.length
-    return arguments[i] if typeof arguments[i] isnt 'undefined'
-    i++
+  for argument in arguments when typeof argument isnt 'undefined'
+    return argument
   arguments[arguments.length - 1]
 
 getContent = (selector) ->

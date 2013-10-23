@@ -1,5 +1,5 @@
 (function() {
-  var authors, drawLinks, drawSignet, getMetaList, hasStyledLogSupport, links, supportsStyledLogs, _ref;
+  var authors, deferConsole, drawLinks, drawSignet, getMetaList, links, supportsStyledLogs, _ref;
 
   if (((_ref = window.console) != null ? _ref.log : void 0) == null) {
     return;
@@ -27,7 +27,7 @@
 
   links = getMetaList("signet:links");
 
-  hasStyledLogSupport = function() {
+  supportsStyledLogs = (function() {
     var ffSupport, isFF, isIE, isOpera, isSafari, operaSupport, safariSupport;
     isSafari = function() {
       return /Safari/.test(navigator.userAgent) && /Apple Computer/.test(navigator.vendor);
@@ -61,9 +61,45 @@
       return window.console.firebug || window.console.exception;
     };
     return !isIE() && (!isFF() || ffSupport()) && (!isOpera() || operaSupport()) && (!isSafari() || safariSupport());
-  };
+  })();
 
-  supportsStyledLogs = hasStyledLogSupport();
+  deferConsole = function(fn) {
+    var callable, i, messages, old, type, types, _fn, _i, _len;
+    types = ['log', 'debug', 'warn', 'error'];
+    old = {};
+    callable = {};
+    messages = [];
+    i = types.length;
+    _fn = function(type) {
+      old[type] = console[type];
+      callable[type] = function() {
+        return old[type].apply(console, arguments);
+      };
+      return console[type] = function() {
+        return messages.push([type, arguments]);
+      };
+    };
+    for (i = _i = 0, _len = types.length; _i < _len; i = ++_i) {
+      type = types[i];
+      _fn(type);
+    }
+    return setTimeout(function() {
+      var block, message, _j, _len1, _results;
+      for (_j = 0, _len1 = types.length; _j < _len1; _j++) {
+        type = types[_j];
+        console[type] = old[type];
+      }
+      fn();
+      _results = [];
+      while (messages.length) {
+        block = messages.shift();
+        type = block[0];
+        message = block[1];
+        _results.push(console[type].apply(console, message));
+      }
+      return _results;
+    }, 0);
+  };
 
   drawSignet = function() {
     var author, authorHeight, barHeight, barTop, barWidth, canvas, canvasHeight, canvasWidth, colors, context, drawRectangle, drawText, height, hue, i, imageCSS, individualBarLeft, individualBarWidth, j, leftOffsetHack, letter, lineHeightHack, repeatHack, _i, _j, _k, _len, _len1, _len2, _ref1;
@@ -170,9 +206,9 @@
     return console.log.apply(console, linksArgs);
   };
 
-  setTimeout(function() {
+  deferConsole(function() {
     drawSignet();
     return drawLinks();
-  }, 0);
+  });
 
 }).call(this);
