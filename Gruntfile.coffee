@@ -6,10 +6,11 @@ module.exports = (grunt) ->
       compile:
         files:
           'signet.js': 'signet.coffee'
+          'draw.js': 'draw.coffee'
 
     watch:
       coffee:
-        files: ['signet.coffee']
+        files: ['signet.coffee', 'draw.coffee']
         tasks: ['coffee', 'uglify']
 
     uglify:
