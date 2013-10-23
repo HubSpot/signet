@@ -1,3 +1,5 @@
+return unless window.console?.log?
+
 authors = document.head.querySelector('meta[name="signet:authors"]')?.content?.split(', ')
 links = document.head.querySelector('meta[name="signet:links"]')?.content?.split(', ')
 
