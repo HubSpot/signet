@@ -1,5 +1,5 @@
-authors = ['Adam Schwartz', 'Zack Bloom']
-links = ['http://twitter.com/adamfschwartz', 'http://github.com/adamschwartz', 'http://twitter.com/zackbloom', 'http://github.com/zackbloom']
+authors = document.head.querySelector('meta[name="signet:authors"]')?.content?.split(', ')
+links = document.head.querySelector('meta[name="signet:links"]')?.content?.split(', ')
 
 canvasHeight = 3000
 canvasWidth = 3000
