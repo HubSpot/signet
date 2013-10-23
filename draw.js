@@ -142,6 +142,7 @@
       link = links[i];
       firstPartLength = (link.replace(/(https?:\/\/[^\/]+(\/|$))(.*)/, '$1')).length;
       secondPartLength = link.length - firstPartLength;
+      image = null;
       for (domain in IMAGES) {
         img = IMAGES[domain];
         if ((new RegExp("^(https?://)?(www\.)?" + domain + "/", 'i')).test(link)) {

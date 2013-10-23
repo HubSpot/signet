@@ -111,6 +111,7 @@ drawLinks = ->
         firstPartLength = (link.replace(/(https?:\/\/[^\/]+(\/|$))(.*)/, '$1')).length
         secondPartLength = link.length - firstPartLength
 
+        image = null
         for domain, img of IMAGES
             if (new RegExp("^(https?://)?(www\.)?#{ domain }/", 'i')).test(link)
                 image = img
