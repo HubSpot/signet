@@ -119,7 +119,7 @@
   };
 
   drawLinks = function() {
-    var IMAGES, charsOffset, domain, firstPartLength, i, image, img, leftMargin, lineHeight, link, linkFontCharWidth, linkFontSize, linksArgs, secondPartLength, _i, _j, _len, _len1;
+    var IMAGES, charsOffset, domain, domainLength, i, image, img, leftMargin, lineHeight, link, linkFontCharWidth, linkFontSize, linksArgs, pathLength, _i, _j, _len, _len1;
     if (!links.length) {
       return;
     }
@@ -140,8 +140,8 @@
     lineHeight = 16;
     for (i = _j = 0, _len1 = links.length; _j < _len1; i = ++_j) {
       link = links[i];
-      firstPartLength = (link.replace(/(https?:\/\/[^\/]+(\/|$))(.*)/, '$1')).length;
-      secondPartLength = link.length - firstPartLength;
+      domainLength = (link.replace(/(https?:\/\/[^\/]+(\/|$))(.*)/, '$1')).length;
+      pathLength = link.length - domainLength;
       image = null;
       for (domain in IMAGES) {
         img = IMAGES[domain];
@@ -152,7 +152,7 @@
       }
       if (image) {
         linksArgs[0] += "%c" + link + "%c %c %c\n";
-        leftMargin = -linkFontCharWidth * (firstPartLength - 1);
+        leftMargin = -linkFontCharWidth * (domainLength - 1);
       } else {
         linksArgs[0] += "%c" + link + "\n";
         leftMargin = linkFontCharWidth;
@@ -160,7 +160,7 @@
       linksArgs.push("-webkit-font-smoothing: antialiased; font: 400 " + linkFontSize + "px monospace; margin-left: " + leftMargin + "px");
       if (image) {
         charsOffset = 5;
-        leftMargin = -linkFontCharWidth * (secondPartLength + charsOffset) + 1;
+        leftMargin = -linkFontCharWidth * (pathLength + charsOffset) + 1;
         linksArgs.push("background: #fff; line-height: " + lineHeight + "px; padding: " + ((lineHeight / 2) + 2) + "px " + (Math.floor(charsOffset / 2) * linkFontCharWidth) + "px " + ((lineHeight / 2) + 2) + "px " + (Math.ceil(charsOffset / 2) * linkFontCharWidth) + "px; font-size: 0; margin-left: " + leftMargin + "px");
         leftMargin = -linkFontCharWidth * 3;
         linksArgs.push("background: #fff url(" + image + "); line-height: " + lineHeight + "px; padding: 11px 14px 3px 0; font-size: 0; margin-left: " + leftMargin + "px");

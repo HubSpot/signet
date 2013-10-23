@@ -108,8 +108,8 @@ drawLinks = ->
     lineHeight = 16
 
     for link, i in links
-        firstPartLength = (link.replace(/(https?:\/\/[^\/]+(\/|$))(.*)/, '$1')).length
-        secondPartLength = link.length - firstPartLength
+        domainLength = (link.replace(/(https?:\/\/[^\/]+(\/|$))(.*)/, '$1')).length
+        pathLength = link.length - domainLength
 
         image = null
         for domain, img of IMAGES
@@ -119,7 +119,7 @@ drawLinks = ->
 
         if image
             linksArgs[0] += "%c#{ link }%c %c %c\n"
-            leftMargin = -linkFontCharWidth * (firstPartLength - 1) # Hide the domain part of the URL
+            leftMargin = -linkFontCharWidth * (domainLength - 1) # Hide the domain part of the URL
         else
             linksArgs[0] += "%c#{ link }\n"
             leftMargin = linkFontCharWidth
@@ -128,7 +128,7 @@ drawLinks = ->
 
         if image
             charsOffset = 5
-            leftMargin = -linkFontCharWidth * (secondPartLength + charsOffset) + 1 # Position this white text over part of the URL
+            leftMargin = -linkFontCharWidth * (pathLength + charsOffset) + 1 # Position this white text over part of the URL
             linksArgs.push "background: #fff; line-height: #{ lineHeight }px; padding: #{ (lineHeight / 2) + 2 }px #{ Math.floor(charsOffset / 2) * linkFontCharWidth }px #{ (lineHeight / 2) + 2 }px #{ Math.ceil(charsOffset / 2) * linkFontCharWidth }px; font-size: 0; margin-left: #{ leftMargin }px"
 
             leftMargin = -linkFontCharWidth * 3 # Position the logo over the slash part of the URL
