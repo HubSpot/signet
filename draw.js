@@ -128,16 +128,23 @@
       link = links[i];
       firstPartLength = (link.replace(/(https?:\/\/\w+\.\w+\/)(.+)/, '$1')).length;
       secondPartLength = link.length - firstPartLength;
-      linksArgs[0] += "%c" + link + "%c %c %c\n";
-      image = /twitter/.test(link) ? twitterImage : /github/.test(link) ? githubImage : '';
-      leftMargin = -linkFontCharWidth * (firstPartLength - 1);
+      image = /https?:\/\/twitter\.com/.test(link) ? twitterImage : /https?:\/\/github\.com/.test(link) ? githubImage : false;
+      if (image) {
+        linksArgs[0] += "%c" + link + "%c %c %c\n";
+        leftMargin = -linkFontCharWidth * (firstPartLength - 1);
+      } else {
+        linksArgs[0] += "%c" + link + "\n";
+        leftMargin = linkFontCharWidth;
+      }
       linksArgs.push("-webkit-font-smoothing: antialiased; font: 400 " + linkFontSize + "px monospace; margin-left: " + leftMargin + "px");
-      charsOffset = 5;
-      leftMargin = -linkFontCharWidth * (secondPartLength + charsOffset) + 1;
-      linksArgs.push("background: #fff; line-height: " + lineHeight + "px; padding: " + ((lineHeight / 2) + 2) + "px " + (Math.floor(charsOffset / 2) * linkFontCharWidth) + "px " + ((lineHeight / 2) + 2) + "px " + (Math.ceil(charsOffset / 2) * linkFontCharWidth) + "px; font-size: 0; margin-left: " + leftMargin + "px");
-      leftMargin = -linkFontCharWidth * 3;
-      linksArgs.push("background: #fff url(" + image + "); line-height: " + lineHeight + "px; padding: 11px 14px 3px 0; font-size: 0; margin-left: " + leftMargin + "px");
-      linksArgs.push('');
+      if (image) {
+        charsOffset = 5;
+        leftMargin = -linkFontCharWidth * (secondPartLength + charsOffset) + 1;
+        linksArgs.push("background: #fff; line-height: " + lineHeight + "px; padding: " + ((lineHeight / 2) + 2) + "px " + (Math.floor(charsOffset / 2) * linkFontCharWidth) + "px " + ((lineHeight / 2) + 2) + "px " + (Math.ceil(charsOffset / 2) * linkFontCharWidth) + "px; font-size: 0; margin-left: " + leftMargin + "px");
+        leftMargin = -linkFontCharWidth * 3;
+        linksArgs.push("background: #fff url(" + image + "); line-height: " + lineHeight + "px; padding: 11px 14px 3px 0; font-size: 0; margin-left: " + leftMargin + "px");
+        linksArgs.push('');
+      }
     }
     return console.log.apply(console, linksArgs);
   };
