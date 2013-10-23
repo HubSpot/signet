@@ -1,11 +1,15 @@
 {
   "name": "Signet",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Display a unique seal in the developer console of your page.",
   "author": "Adam Schwartz <aschwartz@hubspot.com>",
   "license": "MIT",
   "devDependencies": {
+    "grunt-contrib-coffee": "~0.7.0",
+    "coffee-script": "~1.6.3",
     "grunt-contrib-uglify": "~0.2.4",
-    "grunt": "~0.4.1"
+    "grunt-cli": "~0.1.9",
+    "grunt": "~0.4.1",
+    "grunt-contrib-watch": "~0.5.3"
   }
 }
