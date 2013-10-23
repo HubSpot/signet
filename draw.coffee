@@ -42,8 +42,8 @@ drawSignet = ->
         barTop = authorHeight * i + ((authorHeight - barHeight) / 2)
 
         for letter, j in colors
-            individualBarLeft = Math.floor((barWidth * j) / colors.length)
-            individualBarWidth = Math.ceil(((barWidth * (j + 1)) / colors.length) - individualBarLeft)
+            individualBarLeft = Math.floor (barWidth * j) / colors.length
+            individualBarWidth = Math.ceil ((barWidth * (j + 1)) / colors.length) - individualBarLeft
             hue = ((letter.toLowerCase().charCodeAt(0) * 2) + (colors.toLowerCase().charCodeAt(0) * 5)) % 256
             drawRectangle individualBarLeft, barTop, individualBarWidth, barHeight, 'hsl(' + hue + ', 80%, 80%)'
 
