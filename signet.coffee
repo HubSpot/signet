@@ -6,8 +6,8 @@ getMetaList = (name) ->
         return (element.trim() for element in content.split(','))
     return undefined
 
-authors = getMetaList("signet:authors")
-links = getMetaList("signet:links")
+authors = getMetaList('signet:authors')
+links = getMetaList('signet:links')
 
 textFont = '400 12px "Helvetica Neue", Helvetica, Arial, sans-serif'
 textFontSize = 12
@@ -110,13 +110,13 @@ drawSignet = ->
             individualBarLeft = Math.floor((barWidth * j) / colors.length)
             individualBarWidth = Math.ceil(((barWidth * (j + 1)) / colors.length) - individualBarLeft)
             hue = ((letter.toLowerCase().charCodeAt(0) * 2) + (colors.toLowerCase().charCodeAt(0) * 5)) % 256
-            drawRectangle individualBarLeft, barTop, individualBarWidth, barHeight, 'hsl(' + hue + ', 80%, 80%)'
+            drawRectangle individualBarLeft, barTop, individualBarWidth, barHeight, "hsl(#{ hue }, 80%, 80%)"
 
     # Debugging
     # drawRectangle 0, 0, canvasWidth, 1, 'red'
     # drawRectangle 0, 0, 1, canvasHeight, 'red'
 
-    imageCSS = 'font-size: 0; line-height: ' + (height + lineHeightHack) + 'px; padding: ' + Math.floor(height / 2) + 'px ' + canvasWidth + 'px ' + (Math.ceil(height / 2)) + 'px 0; background-image: url("' + canvas.toDataURL() + '"); margin-left: ' + leftOffsetHack + 'px'
+    imageCSS = """font-size: 0; line-height: #{ height + lineHeightHack }px; padding: #{ Math.floor(height / 2) }px #{ canvasWidth }px #{ Math.ceil(height / 2) }px 0; background-image: url("#{ canvas.toDataURL() }"); margin-left: #{ leftOffsetHack }px"""
     console.log '%c ', imageCSS
 
 drawLinks = ->

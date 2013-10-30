@@ -23,9 +23,9 @@
     return void 0;
   };
 
-  authors = getMetaList("signet:authors");
+  authors = getMetaList('signet:authors');
 
-  links = getMetaList("signet:links");
+  links = getMetaList('signet:links');
 
   textFont = '400 12px "Helvetica Neue", Helvetica, Arial, sans-serif';
 
@@ -150,10 +150,10 @@
         individualBarLeft = Math.floor((barWidth * j) / colors.length);
         individualBarWidth = Math.ceil(((barWidth * (j + 1)) / colors.length) - individualBarLeft);
         hue = ((letter.toLowerCase().charCodeAt(0) * 2) + (colors.toLowerCase().charCodeAt(0) * 5)) % 256;
-        drawRectangle(individualBarLeft, barTop, individualBarWidth, barHeight, 'hsl(' + hue + ', 80%, 80%)');
+        drawRectangle(individualBarLeft, barTop, individualBarWidth, barHeight, "hsl(" + hue + ", 80%, 80%)");
       }
     }
-    imageCSS = 'font-size: 0; line-height: ' + (height + lineHeightHack) + 'px; padding: ' + Math.floor(height / 2) + 'px ' + canvasWidth + 'px ' + (Math.ceil(height / 2)) + 'px 0; background-image: url("' + canvas.toDataURL() + '"); margin-left: ' + leftOffsetHack + 'px';
+    imageCSS = "font-size: 0; line-height: " + (height + lineHeightHack) + "px; padding: " + (Math.floor(height / 2)) + "px " + canvasWidth + "px " + (Math.ceil(height / 2)) + "px 0; background-image: url(\"" + (canvas.toDataURL()) + "\"); margin-left: " + leftOffsetHack + "px";
     return console.log('%c ', imageCSS);
   };
 
