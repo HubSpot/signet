@@ -35,7 +35,7 @@ By adding these `<meta>` tags to your page, you'll get the added benefit of __im
 ##### [script.min.js](http://github.hubspot.com/signet/signet.min.js)
 ##### [script.js](http://github.hubspot.com/signet/signet.js)
 
-### Advnaced Use
+### Advanced Use
 
 If you want full control, you can disable the autoinitialization and set your own options.
 
