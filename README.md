@@ -49,4 +49,4 @@ Signet will harmelessly disable itself on older browsers without advanced consol
 
 ### Title Signet
 
-An earlier version of this library featured the ability to display a unique seal based on the title of the page, rather than the author list. This has been moveed to the [titleSignet](https://github.com/HubSpot/signet/tree/master/titleSignet) directory of this repo. It contains its own README and has a different configuration.
+An earlier version of this library featured the ability to display a unique seal based on the title of the page, rather than the author list. This has been moved to the [titleSignet](https://github.com/HubSpot/signet/tree/master/titleSignet) directory of this repo. It contains its own README and has a different configuration.
