@@ -9,11 +9,11 @@ getMetaList = (name) ->
 authors = getMetaList("signet:authors")
 links = getMetaList("signet:links")
 
-supportsStyledLogs = do ->
-    isSafari = -> /Safari/.test(navigator.userAgent) and /Apple Computer/.test(navigator.vendor)
-    isOpera = -> /OPR/.test(navigator.userAgent) and /Opera/.test(navigator.vendor)
-    isFF = -> /Firefox/.test(navigator.userAgent)
+supportsLogBackgroundImage = do ->
     isIE = -> /MSIE/.test(navigator.userAgent)
+    isFF = -> /Firefox/.test(navigator.userAgent)
+    isOpera = -> /OPR/.test(navigator.userAgent) and /Opera/.test(navigator.vendor)
+    isSafari = -> /Safari/.test(navigator.userAgent) and /Apple Computer/.test(navigator.vendor)
 
     # Safari starting supporting stylized logs in Nightly 537.38+
     # See https://github.com/adamschwartz/log/issues/6
@@ -27,11 +27,7 @@ supportsStyledLogs = do ->
         return false unless m
         return 15 <= parseInt(m[1], 10)
 
-    # Detect for Firebug http://stackoverflow.com/a/398120/131898
-    ffSupport = ->
-        window.console.firebug or window.console.exception
-
-    (not isIE() and (not isFF() or ffSupport()) and (not isOpera() or operaSupport()) and (not isSafari() or safariSupport()))
+    (not isIE() and not isFF() and (not isOpera() or operaSupport()) and (not isSafari() or safariSupport()))
 
 # Defer execution until the next event loop tick, but don't let anything be rendered to the console
 # until we can run our function.  This will break console.log line numbers, but only for the first tick.
@@ -66,7 +62,7 @@ deferConsole = (fn) ->
 drawSignet = ->
     return unless authors.length
 
-    unless supportsStyledLogs
+    unless supportsLogBackgroundImage
         console.log 'Authors:'
         console.log(author) for author in authors
         return
@@ -122,7 +118,7 @@ drawSignet = ->
 drawLinks = ->
     return unless links.length
 
-    unless supportsStyledLogs
+    unless supportsLogBackgroundImage
         console.log(link) for link in links
         return
 

@@ -1,5 +1,5 @@
 (function() {
-  var authors, deferConsole, drawLinks, drawSignet, getMetaList, links, supportsStyledLogs, _ref;
+  var authors, deferConsole, drawLinks, drawSignet, getMetaList, links, supportsLogBackgroundImage, _ref;
 
   if (((_ref = window.console) != null ? _ref.log : void 0) == null) {
     return;
@@ -27,19 +27,19 @@
 
   links = getMetaList("signet:links");
 
-  supportsStyledLogs = (function() {
-    var ffSupport, isFF, isIE, isOpera, isSafari, operaSupport, safariSupport;
-    isSafari = function() {
-      return /Safari/.test(navigator.userAgent) && /Apple Computer/.test(navigator.vendor);
-    };
-    isOpera = function() {
-      return /OPR/.test(navigator.userAgent) && /Opera/.test(navigator.vendor);
+  supportsLogBackgroundImage = (function() {
+    var isFF, isIE, isOpera, isSafari, operaSupport, safariSupport;
+    isIE = function() {
+      return /MSIE/.test(navigator.userAgent);
     };
     isFF = function() {
       return /Firefox/.test(navigator.userAgent);
     };
-    isIE = function() {
-      return /MSIE/.test(navigator.userAgent);
+    isOpera = function() {
+      return /OPR/.test(navigator.userAgent) && /Opera/.test(navigator.vendor);
+    };
+    isSafari = function() {
+      return /Safari/.test(navigator.userAgent) && /Apple Computer/.test(navigator.vendor);
     };
     safariSupport = function() {
       var m;
@@ -57,10 +57,7 @@
       }
       return 15 <= parseInt(m[1], 10);
     };
-    ffSupport = function() {
-      return window.console.firebug || window.console.exception;
-    };
-    return !isIE() && (!isFF() || ffSupport()) && (!isOpera() || operaSupport()) && (!isSafari() || safariSupport());
+    return !isIE() && !isFF() && (!isOpera() || operaSupport()) && (!isSafari() || safariSupport());
   })();
 
   deferConsole = function(fn) {
@@ -106,7 +103,7 @@
     if (!authors.length) {
       return;
     }
-    if (!supportsStyledLogs) {
+    if (!supportsLogBackgroundImage) {
       console.log('Authors:');
       for (_i = 0, _len = authors.length; _i < _len; _i++) {
         author = authors[_i];
@@ -159,7 +156,7 @@
     if (!links.length) {
       return;
     }
-    if (!supportsStyledLogs) {
+    if (!supportsLogBackgroundImage) {
       for (_i = 0, _len = links.length; _i < _len; _i++) {
         link = links[_i];
         console.log(link);
