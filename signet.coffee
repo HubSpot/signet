@@ -64,7 +64,7 @@ deferConsole = (fn) ->
     , 0
 
 drawSignet = ->
-    return unless authors.length
+    return unless authors?.length
 
     unless supportsLogBackgroundImage
         console.log 'Authors:'
@@ -120,7 +120,7 @@ drawSignet = ->
     console.log '%c ', imageCSS
 
 drawLinks = ->
-    return unless links.length
+    return unless links?.length
 
     unless supportsLogBackgroundImage
         console.log(link) for link in links

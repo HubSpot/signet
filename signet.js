@@ -106,7 +106,7 @@
 
   drawSignet = function() {
     var author, authorHeight, barHeight, barTop, barWidth, canvas, canvasHeight, canvasWidth, colors, context, drawRectangle, drawText, height, hue, i, imageCSS, individualBarLeft, individualBarWidth, j, leftOffsetHack, letter, lineHeightHack, repeatHack, _i, _j, _k, _len, _len1, _len2, _ref1;
-    if (!authors.length) {
+    if (!(authors != null ? authors.length : void 0)) {
       return;
     }
     if (!supportsLogBackgroundImage) {
@@ -159,7 +159,7 @@
 
   drawLinks = function() {
     var IMAGES, domain, domainPart, domainPartWidth, i, image, img, leftMargin, link, linksArgs, pathPart, pathPartWidth, whiteCoverWidth, _i, _j, _len, _len1;
-    if (!links.length) {
+    if (!(links != null ? links.length : void 0)) {
       return;
     }
     if (!supportsLogBackgroundImage) {
