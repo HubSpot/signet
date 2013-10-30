@@ -1,5 +1,5 @@
 (function() {
-  var authors, deferConsole, drawLinks, drawSignet, getMetaList, links, supportsLogBackgroundImage, _ref;
+  var authors, deferConsole, drawLinks, drawSignet, getMetaList, links, measureTextWidth, supportsLogBackgroundImage, textFont, textFontSize, textLineHeight, _ref;
 
   if (((_ref = window.console) != null ? _ref.log : void 0) == null) {
     return;
@@ -26,6 +26,12 @@
   authors = getMetaList("signet:authors");
 
   links = getMetaList("signet:links");
+
+  textFont = '400 12px "Helvetica Neue", Helvetica, Arial, sans-serif';
+
+  textFontSize = 12;
+
+  textLineHeight = 16;
 
   supportsLogBackgroundImage = (function() {
     var isFF, isIE, isOpera, isSafari, operaSupport, safariSupport;
@@ -124,7 +130,7 @@
     canvas.height = 1000;
     canvas.width = canvasWidth;
     context = canvas.getContext('2d');
-    context.font = '400 12px "Helvetica Neue", Helvetica, Arial, sans-serif';
+    context.font = textFont;
     drawRectangle = function(left, top, width, height, color) {
       context.fillStyle = color;
       return context.fillRect(left, top + repeatHack, width, height);
@@ -152,7 +158,7 @@
   };
 
   drawLinks = function() {
-    var IMAGES, charsOffset, domain, domainLength, i, image, img, leftMargin, lineHeight, link, linkFontCharWidth, linkFontSize, linksArgs, pathLength, _i, _j, _len, _len1;
+    var IMAGES, domain, domainPart, domainPartWidth, i, image, img, leftMargin, link, linksArgs, pathPart, pathPartWidth, whiteCoverWidth, _i, _j, _len, _len1;
     if (!links.length) {
       return;
     }
@@ -168,13 +174,12 @@
       'github.com': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAMAAAAolt3jAAAA1VBMVEUTERIPDg8QDw8TDxMSEhIREREQEBATERETEBAREREQEBATEBMRERERERESEhISEBISEBIREBESERIREBAVFRUQDxAUDxQSERIUDw8TEBAREBASERIQDxASEBISEBIQEBAAAAAREREQDw8QDxAODg4TEBMVDhUQDxATEBMSEhIREBAREBATExMRDxEQEBASEBIRERESEhISEhISEhITERESEBIREBEREBESEhISEREAAAAUFBQAAAAAAAAAAAAQDw8SERITEhIQDw8RDxAQDw8REBASERLudflrAAAAP3RSTlP+/P5EHVs+iE9ZMW4sdmWRYtGa2yX0M4ozUd2L95udHwOG8ekkUST2UlbN3ijFEI5JHDpkiW/m5GaKAScEAgDgPKx8AAAApklEQVR42h3PxXLDUBBE0YnDzGiHOWaUZOldT5dq/v+XovLZ3t60JShni7pezEpIBtOQNxRTMHJvrdRYtTzHeuGjSTGfF5ORR89uFTes3YUKy9QfUKVUMegrs9CQtIRlYqiwWo+8VDQDnlTbgzpX0GS+3tW1tl+en2zB+OfP9Wrl9cVpbEMu1/eHcbZxuDmGe1f8YrDfzXZgT2+fsL6wewBHx8+Q/gFJwSeod8cM9gAAAABJRU5ErkJggg=='
     };
     linksArgs = ['%c\n', 'line-height: 0; font-size: 0'];
-    linkFontSize = 12;
-    linkFontCharWidth = 7;
-    lineHeight = 16;
     for (i = _j = 0, _len1 = links.length; _j < _len1; i = ++_j) {
       link = links[i];
-      domainLength = (link.replace(/(https?:\/\/[^\/]+(\/|$))(.*)/, '$1')).length;
-      pathLength = link.length - domainLength;
+      domainPart = link.replace(/(https?:\/\/[^\/]+(\/|$))(.*)/, '$1');
+      pathPart = link.substr(domainPart.length);
+      domainPartWidth = measureTextWidth(domainPart);
+      pathPartWidth = measureTextWidth(pathPart);
       image = null;
       for (domain in IMAGES) {
         img = IMAGES[domain];
@@ -185,22 +190,30 @@
       }
       if (image) {
         linksArgs[0] += "%c" + link + "%c %c %c\n";
-        leftMargin = -linkFontCharWidth * (domainLength - 1);
+        leftMargin = -domainPartWidth;
       } else {
         linksArgs[0] += "%c" + link + "\n";
-        leftMargin = linkFontCharWidth;
+        leftMargin = 0;
       }
-      linksArgs.push("-webkit-font-smoothing: antialiased; font: 400 " + linkFontSize + "px monospace; margin-left: " + leftMargin + "px");
+      linksArgs.push("-webkit-font-smoothing: antialiased; font: " + textFont + "; margin-left: " + leftMargin + "px");
       if (image) {
-        charsOffset = 5;
-        leftMargin = -linkFontCharWidth * (pathLength + charsOffset) + 1;
-        linksArgs.push("background: #fff; line-height: " + lineHeight + "px; padding: " + ((lineHeight / 2) + 2) + "px " + (Math.floor(charsOffset / 2) * linkFontCharWidth) + "px " + ((lineHeight / 2) + 2) + "px " + (Math.ceil(charsOffset / 2) * linkFontCharWidth) + "px; font-size: 0; margin-left: " + leftMargin + "px");
-        leftMargin = -linkFontCharWidth * 3;
-        linksArgs.push("background: #fff url(" + image + "); line-height: " + lineHeight + "px; padding: 11px 14px 3px 0; font-size: 0; margin-left: " + leftMargin + "px");
+        whiteCoverWidth = 42;
+        leftMargin = -pathPartWidth - whiteCoverWidth;
+        linksArgs.push("background: #fff; line-height: " + textLineHeight + "px; padding: " + ((textLineHeight / 2) + 2) + "px " + (whiteCoverWidth / 2) + "px " + ((textLineHeight / 2) + 2) + "px " + (whiteCoverWidth / 2) + "px; font-size: 0; margin-left: " + leftMargin + "px");
+        leftMargin = -(whiteCoverWidth / 2) + 2;
+        linksArgs.push("background: #fff url(" + image + "); line-height: " + textLineHeight + "px; padding: 11px 14px 3px 0; font-size: 0; margin-left: " + leftMargin + "px");
         linksArgs.push('');
       }
     }
     return console.log.apply(console, linksArgs);
+  };
+
+  measureTextWidth = function(text) {
+    var canvas, context;
+    canvas = document.createElement('canvas');
+    context = canvas.getContext('2d');
+    context.font = textFont;
+    return context.measureText(text).width;
   };
 
   deferConsole(function() {
