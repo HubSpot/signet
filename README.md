@@ -6,68 +6,28 @@
 
 ### Features
 
-- Display a unique seal (automatically generated from the title) in the console.
-- Display page title, author, and description in the console. (Automatically grabs from respective `<meta>` tags)
-- Use the description to provide a link to other developers to learn more about your app, your development processes, or even your hiring informatino ;).
-- Optionally display an image instead of the unique seal.
-- Manual configuration possible in javascript by disabling the auto-initialization and setting your own options. (See below.)
+- Display a unique seal in the console
+- Display links in the console to your Twitter and GitHub sites with icons displayed next to them
 
-### Simple Use
+### Use
 
-Simply include the script in your page and you're done.
+First, make sure you include the script in your page.
 
 ```html
 <script src="signet.min.js"></script>
 ```
 
-To get the most out of Signet, you'll want to make sure you have the following `<meta>` tags in the `<head>` of your page:
+Next, add either or both of the following `<meta>` tags to the `<head>` of your page:
 
 ```html
-<meta name="application-name" content="Example Title">
-<meta name="description" content="Example description. More info: http://example.com">
-<meta name="author" content="Example Author">
+<meta name="signet:authors" content="Example Name, AnotherExample Name">
+<meta name="signet:links" content="http://github.com/example, http://twitter.com/example, http://example.com">
 ```
-
-By adding these `<meta>` tags to your page, you'll get the added benefit of __improving your SEO__.
 
 #### Download
 
 ##### [script.min.js](http://github.hubspot.com/signet/signet.min.js)
 ##### [script.js](http://github.hubspot.com/signet/signet.js)
-
-### Advanced Use
-
-If you want full control, you can disable the autoinitialization and set your own options.
-
-Here's an example of how you might go about that:
-
-```html
-<script src="signet.min.js" data-signet-draw="false"></script>
-<script>
-    var signetOptions = {
-        hue: 50 // Rotates the hue of the signet color bars by 50 (mod 256),
-        title: 'Custom Example Title',
-        description: 'Custom example description. More info: http://example.com'
-    };
-</script>
-```
-
-#### Configuration Options
-
-By default, no configuration is required. View the [demo page](http://github.hubspot.com/signet) for an example which uses no configuration.
-
-However, if desired, you can configure the following:
-
-    window.signetOptions
-      .title             - string  - title of your page (required to show color bars signet)
-      .author            - string  - author of your page
-      .description       - string  - description of your page
-      .hue               - integer - hue offset for the color bars
-      .image             - string  - url of an image to dipslay instead of the color bars
-      .baseStyles        - string  - base style string for all parst of the singet (best used to set base font or color)
-      .titleStyles       - string  - title styles
-      .authorStyles      - string  - author styles
-      .descriptionStyles - string  - description styles
 
 ### Dependencies
 
@@ -75,15 +35,18 @@ None.
 
 ### Support
 
-Stylized logs are supported in the following browsers:
-
 - Chrome 26+
-- Firefox with [Firebug 1.11 beta 2](http://blog.getfirebug.com/2012/11/16/firebug-1-11-beta-2/) or later
 - Opera with Blink (15+)
 - Safari Nightly (537.38+)
 
-Signet will harmelessly disable itself on older browsers without console support.
+Signet will harmelessly disable itself on older browsers without advanced console styling support.
 
 ### Screenshot
 
-![](http://github.hubspot.com/signet/images/preview.png?)
+![](http://github.hubspot.com/signet/images/signet/preview.png)
+
+---------------
+
+### Title Signet
+
+An earlier version of this library featured the ability to display a unique seal based on the title of the page, rather than the author list. This has been moveed to the [titleSignet](https://github.com/HubSpot/signet/tree/master/titleSignet) directory of this repo. It contains its own README and has a different configuration.

@@ -1,8 +1,8 @@
-## Signet
+## Title Signet
 
 #### Display a unique seal in the developer console of your page.
 
-### [Demo](http://github.hubspot.com/signet)
+### [Demo](http://github.hubspot.com/signet/titleSignet)
 
 ### Features
 
@@ -32,8 +32,8 @@ By adding these `<meta>` tags to your page, you'll get the added benefit of __im
 
 #### Download
 
-##### [script.min.js](http://github.hubspot.com/signet/signet.min.js)
-##### [script.js](http://github.hubspot.com/signet/signet.js)
+##### [titleSignet.min.js](http://github.hubspot.com/signet/signet.min.js)
+##### [titleSignet.js](http://github.hubspot.com/signet/signet.js)
 
 ### Advanced Use
 
@@ -42,7 +42,7 @@ If you want full control, you can disable the autoinitialization and set your ow
 Here's an example of how you might go about that:
 
 ```html
-<script src="signet.min.js" data-signet-draw="false"></script>
+<script src="titleSignet.min.js" data-signet-draw="false"></script>
 <script>
     var signetOptions = {
         hue: 50 // Rotates the hue of the signet color bars by 50 (mod 256),
@@ -54,7 +54,7 @@ Here's an example of how you might go about that:
 
 #### Configuration Options
 
-By default, no configuration is required. View the [demo page](http://github.hubspot.com/signet) for an example which uses no configuration.
+By default, no configuration is required. View the [demo page](http://github.hubspot.com/signet/titleSignet) for an example which uses no configuration.
 
 However, if desired, you can configure the following:
 
@@ -86,4 +86,4 @@ Signet will harmelessly disable itself on older browsers without console support
 
 ### Screenshot
 
-![](http://github.hubspot.com/signet/images/preview.png?)
+![](http://github.hubspot.com/signet/images/titleSignet/preview.png)
