@@ -6,19 +6,26 @@ module.exports = (grunt) ->
       compile:
         files:
           'signet.js': 'signet.coffee'
-          'draw.js': 'draw.coffee'
+          'titleSignet/titleSignet.js': 'titleSignet/titleSignet.coffee'
 
     watch:
       coffee:
-        files: ['signet.coffee', 'draw.coffee']
+        files: ['signet.coffee', 'titleSignet/titleSignet.coffee']
         tasks: ['coffee', 'uglify']
 
     uglify:
+
       signet:
         src: 'signet.js'
         dest: 'signet.min.js'
         options:
           banner: '/*! signet.js <%= pkg.version %> */\n'
+
+      titleSignet:
+        src: 'titleSignet/titleSignet.js'
+        dest: 'titleSignet/titleSignet.min.js'
+        options:
+          banner: '/*! titleSignet.js */\n'
 
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
