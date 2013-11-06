@@ -110,7 +110,7 @@
       return;
     }
     if (!supportsLogBackgroundImage) {
-      console.log('Authors:');
+      console.log("Author" + (authors.length === 1 ? '' : 's') + ":");
       for (_i = 0, _len = authors.length; _i < _len; _i++) {
         author = authors[_i];
         console.log(author);

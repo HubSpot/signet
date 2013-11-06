@@ -67,7 +67,7 @@ drawSignet = ->
     return unless authors?.length
 
     unless supportsLogBackgroundImage
-        console.log 'Authors:'
+        console.log "Author#{ if authors.length is 1 then '' else 's' }:"
         console.log(author) for author in authors
         return
 
