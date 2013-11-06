@@ -110,7 +110,7 @@
       return;
     }
     if (!supportsLogBackgroundImage) {
-      console.log('Authors:');
+      console.log("Author" + (authors.length === 1 ? '' : 's') + ":");
       for (_i = 0, _len = authors.length; _i < _len; _i++) {
         author = authors[_i];
         console.log(author);
@@ -170,9 +170,9 @@
       return;
     }
     IMAGES = {
-      'twitter.com': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAMAAAAolt3jAAABDlBMVEX6/P7Q4/qy0vfd7Pzz+P631fgAjO7B2/kAj+7d6/tnrvKTwvXE3florvI0nPAAhu2PwPXl7/yKvvTd6/xlrfIxmu8/n/ArmO9nrfL8/v/D3Pnc6vsclu+hyvZCoPD1+f4ale+mzPYAjO1mrfIume/y+P7l8PxPpvGozfcAk+7v9v3Z6Pvk7/zA2vkMlO4umu8tme9eqvFlrPIqmO8Aiu1DoPAkl+83nO/9/f/v9f11tPN5tvPs9P01m+8ml+++2fhvsfJ8t/P2+v4AkO5YqPEqme8Ake4zm++/2vkmmO8sme8Aju4vmu8ll+/8/f/+//8Aku40m+8nmO8Aje77/f8omO8pmO/9/v/+/v////82XKzkAAAAr0lEQVR42i2HhXJCQRRDLxQpWiq4Fajj7lbcn+5u/v9H2MdwJpnkEMQFEiHbEyDr3tI35BBe4zifMRps6uXtHyHwAsmwpVX07y+C7+ktkf1sn6rq7w8I/qCyyBTUDquti1JDB/X4rkxY87QrSX1erlb7D2YelQZAHGk9ykxTG+tTcBJIxjY7tu8e5sCFBMfDUgun8rN/CJCx9S5cj+tIzgAHCORx2502ByBg6R1uGa5fdzNEjg+lPgAAAABJRU5ErkJggg==',
-      'github.com': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAMAAAAolt3jAAAAwFBMVEWBgIDAv8CZmJmqqqqsrKy2tbXFxcXR0dHk5OTW1taRkZF4d3ihoaE8Ozxwb3Cko6QzMjIaGRrQz9B/fn/Qz88xMDBvbm9+fX4XFxe0s7NtbG38/Pzi4uKCgoIdHBwlJCW0s7Te3d4YFxizsrNAPz+vr68wLy9HRkfa2trw8PB7enu7u7vJycmioqLl5eUQDw/d3d2Af3+Yl5goJygqKSqgoKB/fn7+/v7b29sRDxD7+/v9/f0REBASERITEhL////VYqnUAAAAo0lEQVR42h3Px3bCUBAE0XHEGRvnbIzJGSQh6c10/f9fWYe7rd60JSjX26rarktIBnNXNORzMPLwpRpLjxwbeUxnxWZTzKbhI7uXd9h7cBWWaTimTqlmPFRmrglpB7vERG6VnnivaQa8qbJHvaygyXS/NbDnuL2+OoNF7y/0aeXdzaUfQa7Q78pox+HBAl5D3sfgeJCdwom+fmB/wVpwfvEB6R+4YiZrAlJ9fgAAAABJRU5ErkJggg==',
-      'plus.google.com': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOBAMAAADtZjDiAAAAFVBMVEXic2r88vHLOCDzzMnpoJvVDQDdSzg1eZqZAAAAYklEQVR4AS3JQQ5AMBAF0EFYa+IAMglrTbFHXUC0a5r23/8IponVWzxCcG4ECL21jRiqQ+1i0knjt7ae0rYaGBCiXgo1EXhrH9NQOGaV/+7cuwCir04R2swQQ7Rllgd3MfMH7PQaY1fFaDUAAAAASUVORK5CYII='
+      'twitter.com': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAMAAAAolt3jAAAAGFBMVEWEu/Tf7fxirPK41vg3nPABj+4omO/+//+b16fMAAAAVklEQVR42lXNQRJEUQRDUSRh/ztu8QZd/46cokrMpz/zMR+CBSwrzFBLlbFDYYbdlLegxFq2crzlTu3MrH6p7hF0onDM4inGtJs+PaK0EdYdA8iD+ekHsEgEIt/uHNUAAAAASUVORK5CYII=',
+      'github.com': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAMAAAAolt3jAAAAGFBMVEVCQUIsKyu8u7ugn6B7envc29wSERH+/v6nd/awAAAAXklEQVR42l2PAQrAMAgDNcb4/x8v7ToKCxg8VIgxM82Uku3WWDoq46LL0RLAKgJSB22z5QEjFXMUypD4IaU/5r1NL9NVbcBajBapOmF6xSh4ChN2yExstL8vtK1s8wCxLQQTCpVRJwAAAABJRU5ErkJggg==',
+      'plus.google.com': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAMAAAAolt3jAAAAFVBMVEXic2r88vHLOCDzzMnpoJvVDQDdSzg1eZqZAAAAWklEQVR42lXPORIDQAgDQV3o/082a5x4qhR0QADaajb1hRWy4bhyTEbHMb/rHzHJPIau3bdlG9MDksZSConCRlHFfr7bCTNTerodC+fYmrbTHtUk0I/SfXB9AElwAxEwF7nBAAAAAElFTkSuQmCC'
     };
     linksArgs = ['%c\n', 'line-height: 0; font-size: 0'];
     for (i = _j = 0, _len1 = links.length; _j < _len1; i = ++_j) {
