@@ -48,7 +48,9 @@ deferConsole = (fn) ->
         do (type) ->
             old[type] = console[type]
             callable[type] = -> old[type].apply console, arguments
-            console[type] = -> messages.push [type, arguments]
+            console[type] = ->
+                messages.push [type, arguments]
+                return undefined
 
     setTimeout ->
         for type in types
