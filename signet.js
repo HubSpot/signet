@@ -79,7 +79,8 @@
         return old[type].apply(console, arguments);
       };
       return console[type] = function() {
-        return messages.push([type, arguments]);
+        messages.push([type, arguments]);
+        return void 0;
       };
     };
     for (i = _i = 0, _len = types.length; _i < _len; i = ++_i) {
