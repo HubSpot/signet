@@ -1,8 +1,11 @@
 {
   "name": "signet",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "Display a unique seal in the developer console of your page.",
-  "author": "Adam Schwartz <aschwartz@hubspot.com>",
+  "authors": [
+    "Adam Schwartz <aschwartz@hubspot.com>",
+    "Zack Bloom <zbloom@hubspot.com>"
+  ],
   "license": "MIT",
   "devDependencies": {
     "grunt-contrib-coffee": "~0.7.0",
