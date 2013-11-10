@@ -43,7 +43,8 @@
         return old[type].apply(console, arguments);
       };
       return console[type] = function() {
-        return messages.push([type, arguments]);
+        messages.push([type, arguments]);
+        return void 0;
       };
     };
     for (i = _i = 0, _len = types.length; _i < _len; i = ++_i) {
@@ -53,16 +54,16 @@
     return setTimeout((function() {
       var _then;
       _then = function() {
-        var block, message, _results;
+        var block, message, _j, _len1, _results;
         while (messages.length) {
           block = messages.shift();
           type = block[0];
           message = block[1];
           old[type].apply(console, message);
         }
-        i = types.length;
         _results = [];
-        while (i--) {
+        for (_j = 0, _len1 = types.length; _j < _len1; _j++) {
+          type = types[_j];
           _results.push(console[type] = old[type]);
         }
         return _results;
