@@ -1,6 +1,6 @@
 {
   "name": "signet",
-  "version": "0.4.5",
+  "version": "0.4.7",
   "description": "Display a unique seal in the developer console of your page.",
   "authors": [
     "Adam Schwartz <aschwartz@hubspot.com>",
