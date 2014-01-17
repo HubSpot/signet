@@ -1,9 +1,10 @@
 return unless window.console?.log?
 
 getMetaList = (name) ->
-    content = document.head.querySelector("meta[name='#{ name }']")?.content
+    head = document.head or document.getElementsByTagName("head")[0]
+    content = head.querySelector("meta[name='#{ name }']")?.content
     if content
-        return (element.trim() for element in content.split(','))
+        return (element.trim?() for element in content.split(','))
     return undefined
 
 authors = getMetaList('signet:authors')
