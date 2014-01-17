@@ -6,8 +6,9 @@
   }
 
   getMetaList = function(name) {
-    var content, element, _ref1;
-    content = (_ref1 = document.head.querySelector("meta[name='" + name + "']")) != null ? _ref1.content : void 0;
+    var content, element, head, _ref1;
+    head = document.head || document.getElementsByTagName("head")[0];
+    content = (_ref1 = head.querySelector("meta[name='" + name + "']")) != null ? _ref1.content : void 0;
     if (content) {
       return (function() {
         var _i, _len, _ref2, _results;
@@ -15,7 +16,7 @@
         _results = [];
         for (_i = 0, _len = _ref2.length; _i < _len; _i++) {
           element = _ref2[_i];
-          _results.push(element.trim());
+          _results.push(typeof element.trim === "function" ? element.trim() : void 0);
         }
         return _results;
       })();
