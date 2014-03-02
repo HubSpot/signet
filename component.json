@@ -12,6 +12,6 @@
     "attribution"
   ],
   "scripts": [
-    "js/signet.js"
+    "signet.js"
   ]
 }
