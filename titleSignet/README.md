@@ -8,7 +8,7 @@
 
 - Display a unique seal (automatically generated from the title) in the console.
 - Display page title, author, and description in the console. (Automatically grabs from respective `<meta>` tags)
-- Use the description to provide a link to other developers to learn more about your app, your development processes, or even your hiring informatino ;).
+- Use the description to provide a link to other developers to learn more about your app, your development processes, or even your hiring information ;).
 - Optionally display an image instead of the unique seal.
 - Manual configuration possible in javascript by disabling the auto-initialization and setting your own options. (See below.)
 
