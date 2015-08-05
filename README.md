@@ -20,7 +20,7 @@ First, make sure you include the script in your page.
 [CDN Support by MaxCDN](http://osscdn.com/#/signet)
 
 ```html
-<script src="//oss.maxcdn.com/signet/0.4.4/signet.min.js"></script>
+<script src="//oss.maxcdn.com/signet/0.4.8/signet.min.js"></script>
 ```
 
 Next, add either or both of the following `<meta>` tags to the `<head>` of your page:
