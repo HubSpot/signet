@@ -17,6 +17,12 @@ First, make sure you include the script in your page.
 <script src="signet.min.js"></script>
 ```
 
+[CDN Support by MaxCDN](http://osscdn.com/#/signet)
+
+```html
+<script src="//oss.maxcdn.com/signet/0.4.4/signet.min.js"></script>
+```
+
 Next, add either or both of the following `<meta>` tags to the `<head>` of your page:
 
 ```html
@@ -26,8 +32,8 @@ Next, add either or both of the following `<meta>` tags to the `<head>` of your 
 
 #### Download
 
-##### [script.min.js](https://raw.github.com/HubSpot/signet/v0.4.7/signet.min.js)
-##### [script.js](https://raw.github.com/HubSpot/signet/v0.4.7/signet.js)
+##### [script.min.js](https://raw.github.com/HubSpot/signet/v0.4.8/signet.min.js)
+##### [script.js](https://raw.github.com/HubSpot/signet/v0.4.8/signet.js)
 
 ### Dependencies
 

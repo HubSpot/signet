@@ -2,7 +2,7 @@
   "name": "signet",
   "repo": "HubSpot/signet",
   "description": "Display a unique seal in the developer console of your page.",
-  "version": "0.4.7",
+  "version": "0.4.8",
   "homepage": "http://github.hubspot.com/signet",
   "license": "MIT",
   "keywords": [
@@ -12,6 +12,6 @@
     "attribution"
   ],
   "scripts": [
-    "js/signet.js"
+    "signet.js"
   ]
 }

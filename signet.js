@@ -193,7 +193,7 @@
       }
       if (image) {
         linksArgs[0] += "%c" + link + "%c %c %c\n";
-        leftMargin = -domainPartWidth;
+        leftMargin = -(domainPartWidth / 2);
       } else {
         linksArgs[0] += "%c" + link + "\n";
         leftMargin = 0;
