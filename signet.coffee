@@ -151,7 +151,7 @@ drawLinks = ->
 
         if image
             linksArgs[0] += "%c#{ link }%c %c %c\n"
-            leftMargin = - domainPartWidth
+            leftMargin = - (domainPartWidth / 2) # The console now wraps the link with a <span><a></a></span> and both get the same margin-left, so we need to halve it so that together we’re at the correct position
         else
             linksArgs[0] += "%c#{ link }\n"
             leftMargin = 0

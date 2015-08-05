@@ -32,8 +32,8 @@ Next, add either or both of the following `<meta>` tags to the `<head>` of your 
 
 #### Download
 
-##### [script.min.js](https://raw.github.com/HubSpot/signet/v0.4.7/signet.min.js)
-##### [script.js](https://raw.github.com/HubSpot/signet/v0.4.7/signet.js)
+##### [script.min.js](https://raw.github.com/HubSpot/signet/v0.4.8/signet.min.js)
+##### [script.js](https://raw.github.com/HubSpot/signet/v0.4.8/signet.js)
 
 ### Dependencies
 
